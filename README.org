@@ -5,6 +5,9 @@ Start server with
 #+begin_src sh
 iex -S mix phx.server
 #+end_src
+* Misc Links
+- [[https://github.com/fabrik42/traffic-light-server][fabrik42/traffic-light-server: The original server built with node.js]]
+- [[https://github.com/fabrik42/traffic-light-client-elixir][fabrik42/traffic-light-client-elixir: A web controlled traffic light for Raspberry PI, powered by Elixir and Nerves]]
 * Dependencies
 - [[https://github.com/whatyouhide/redix][redix: Fast, pipelined, resilient Redis driver for Elixir]]
 - [[https://github.com/devinus/poison][poison: An incredibly fast, pure Elixir JSON library]]
