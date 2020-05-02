@@ -1,0 +1,48 @@
+<section class="phx-hero">
+  <h1>Welcome to Traffic Light!</h1>
+  <p>Peace-of-mind from prototype to production</p>
+
+  <dl>
+    <dt>
+      Mode
+    </dt>
+    <dd>
+      <%= @light_setting.mode %>
+    </dd>
+
+    <dt>
+      Red
+    </dt>
+    <dd>
+      <%= @light_setting.red %>
+    </dd>
+
+    <dt>
+      Yellow
+    </dt>
+    <dd>
+      <%= @light_setting.yellow %>
+    </dd>
+
+    <dt>
+      Green
+    </dt>
+    <dd>
+      <%= @light_setting.green %>
+    </dd>
+  </dl>
+
+  <!-- <form phx-change="suggest" phx-submit="search"> -->
+  <!--   <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/> -->
+  <!--   <datalist id="results"> -->
+  <!--     <%= for {app, _vsn} <- @results do %> -->
+  <!--       <option value="<%= app %>"><%= app %></option> -->
+  <!--     <% end %> -->
+  <!--   </datalist> -->
+  <!--   <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button> -->
+  <!-- </form> -->
+</section>
+
+<section class="row">
+  hello
+</section>

@@ -1,0 +1,10 @@
+* Traffic Light Server
+
+Start server with
+
+#+begin_src sh
+iex -S mix phx.server
+#+end_src
+* Dependencies
+- [[https://github.com/whatyouhide/redix][redix: Fast, pipelined, resilient Redis driver for Elixir]]
+- [[https://github.com/devinus/poison][poison: An incredibly fast, pure Elixir JSON library]]
