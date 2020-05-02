@@ -4,6 +4,11 @@ defmodule TrafficLight.LightSettingTest do
 
   alias TrafficLight.LightSetting
 
+  test "build" do
+    light_setting = %LightSetting{mode: "ci", red: false, yellow: false, green: false}
+    assert LightSetting.build() == light_setting
+  end
+
   test "returns current mode" do
     assert LightSetting.current_mode() == "ci"
   end

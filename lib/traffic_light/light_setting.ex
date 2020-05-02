@@ -3,6 +3,10 @@ defmodule TrafficLight.LightSetting do
 
   @colors [:red, :yellow, :green]
 
+  def build do
+    %__MODULE__{mode: current_mode(), red: false, yellow: false, green: false}
+  end
+
   def ordered_colors do
     @colors
   end
