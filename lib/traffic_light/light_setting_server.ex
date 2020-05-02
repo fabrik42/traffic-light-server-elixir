@@ -25,7 +25,7 @@ defmodule TrafficLight.LightSettingServer do
 
   @impl true
   def init(default_state) do
-    {:ok, conn} = Redix.start_link(host: "localhost")
+    {:ok, conn} = Redix.start_link(System.get_env("REDIS_URL"))
 
     state =
       default_state
