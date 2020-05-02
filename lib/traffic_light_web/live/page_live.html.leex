@@ -1,48 +1,14 @@
-<section class="phx-hero">
-  <h1>Welcome to Traffic Light!</h1>
-  <p>Peace-of-mind from prototype to production</p>
+<div id="top-bar" class="<%= LightSetting.top_bar_class_name(@light_setting)%>"></div>
 
-  <dl>
-    <dt>
-      Mode
-    </dt>
-    <dd>
-      <%= @light_setting.mode %>
-    </dd>
-
-    <dt>
-      Red
-    </dt>
-    <dd>
-      <%= @light_setting.red %>
-    </dd>
-
-    <dt>
-      Yellow
-    </dt>
-    <dd>
-      <%= @light_setting.yellow %>
-    </dd>
-
-    <dt>
-      Green
-    </dt>
-    <dd>
-      <%= @light_setting.green %>
-    </dd>
-  </dl>
-
-  <!-- <form phx-change="suggest" phx-submit="search"> -->
-  <!--   <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/> -->
-  <!--   <datalist id="results"> -->
-  <!--     <%= for {app, _vsn} <- @results do %> -->
-  <!--       <option value="<%= app %>"><%= app %></option> -->
-  <!--     <% end %> -->
-  <!--   </datalist> -->
-  <!--   <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button> -->
-  <!-- </form> -->
-</section>
-
-<section class="row">
-  hello
-</section>
+<div id="container">
+  <ul id="switch">
+    <%= for c <- LightSetting.ordered_colors do %>
+      <li>
+        <a data-state="<%= LightSetting.switch_value(@light_setting, c) %>" data-color="<%= c %>" phx-click="set_color" phx-value-color="<%= c %>" phx-value-new-state="<%= LightSetting.opposite_switch_value(@light_setting, c) %>"></a>
+      </li>
+    <% end %>
+  </ul>
+  <p>
+    Mode: <%= @light_setting.mode %>
+  </p>
+</div>

@@ -1,6 +1,83 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
+@import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/nprogress/nprogress.css";
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  color: #2f2f2f;
+  line-height: 1.4em;
+  text-align: center;
+}
+
+#container {
+  padding: 10px;
+  background: #fff;
+}
+
+/** TOP BAR **/
+
+#top-bar {
+  height: 3px;
+  background: #2d2b2e;
+}
+
+#top-bar.red {
+  background: #b71817;
+}
+
+#top-bar.yellow {
+  background: #efb406;
+}
+
+#top-bar.green {
+  background: #01772d;
+}
+
+/** LIGHT SWITCH **/
+
+#switch {
+  margin:10px auto;
+  width:100px;
+  padding: 0;
+}
+
+#switch li {
+  list-style: none;
+}
+
+#switch li a {
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#switch li a[data-color='red'] {
+  height: 104px;
+  background-image: url('/images/red-off.png');
+}
+
+#switch li a[data-color='red'][data-state='on'] {
+  background-image: url('/images/red-on.png');
+}
+
+#switch li a[data-color='yellow'] {
+  height: 89px;
+  background-image: url('/images/yellow-off.png');
+}
+
+#switch li a[data-color='yellow'][data-state='on'] {
+  background-image: url('/images/yellow-on.png');
+}
+
+#switch li a[data-color='green'] {
+  height: 101px;
+  background-image: url('/images/green-off.png');
+}
+
+#switch li a[data-color='green'][data-state='on'] {
+  background-image: url('/images/green-on.png');
+}
 
 /* LiveView specific classes for your customizations */
 .invalid-feedback {

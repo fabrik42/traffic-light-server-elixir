@@ -1,6 +1,7 @@
 defmodule TrafficLightWeb.PageLive do
   use TrafficLightWeb, :live_view
 
+  alias TrafficLight.LightSetting
   alias TrafficLight.LightSettingServer
 
   @impl true
@@ -11,45 +12,23 @@ defmodule TrafficLightWeb.PageLive do
 
     initial_state =
       socket
-      |> assign(query: "", results: %{})
       |> assign(light_setting: light_setting)
 
     {:ok, initial_state}
   end
 
   @impl true
-  def handle_event("suggest", %{"q" => query}, socket) do
-    {:noreply, assign(socket, results: search(query), query: query)}
-  end
-
-  @impl true
-  def handle_event("search", %{"q" => query}, socket) do
-    case search(query) do
-      %{^query => vsn} ->
-        {:noreply, redirect(socket, external: "https://hexdocs.pm/#{query}/#{vsn}")}
-
-      _ ->
-        {:noreply,
-         socket
-         |> put_flash(:error, "No dependencies found matching \"#{query}\"")
-         |> assign(results: %{}, query: query)}
+  def handle_event("set_color", %{"color" => color, "new-state" => new_state}, socket) do
+    case LightSetting.update_color(socket.assigns.light_setting, color, new_state) do
+      {:ok, new_setting} -> LightSettingServer.set(new_setting)
+      _ -> nil
     end
+
+    {:noreply, socket}
   end
 
   @impl true
   def handle_info({:light_setting_update, light_setting}, socket) do
     {:noreply, assign(socket, :light_setting, light_setting)}
-  end
-
-  defp search(query) do
-    if not TrafficLightWeb.Endpoint.config(:code_reloader) do
-      raise "action disabled when not in development"
-    end
-
-    for {app, desc, vsn} <- Application.started_applications(),
-        app = to_string(app),
-        String.starts_with?(app, query) and not List.starts_with?(desc, ~c"ERTS"),
-        into: %{},
-        do: {app, vsn}
   end
 end
