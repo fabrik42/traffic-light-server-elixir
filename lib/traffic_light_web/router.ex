@@ -1,6 +1,8 @@
 defmodule TrafficLightWeb.Router do
   use TrafficLightWeb, :router
 
+  alias TrafficLightWeb.LightSettingController
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -12,6 +14,8 @@ defmodule TrafficLightWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    resources "/lights", LightSettingController, only: [:show], singleton: true
   end
 
   scope "/", TrafficLightWeb do
