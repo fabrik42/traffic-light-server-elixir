@@ -21,8 +21,17 @@ defmodule TrafficLight.LightSetting do
     Poison.decode!(light_setting, as: %__MODULE__{}, keys: :atoms!)
   end
 
+  def as_json(light_setting) do
+    %{
+      mode: light_setting.mode,
+      red: light_setting.red,
+      yellow: light_setting.yellow,
+      green: light_setting.green
+    }
+  end
+
   def to_json(light_setting) do
-    Poison.encode!(light_setting, only: [:mode | ordered_colors()])
+    light_setting |> as_json |> Poison.encode!()
   end
 
   def switch_value(light_setting, color) do

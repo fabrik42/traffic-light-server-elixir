@@ -21,6 +21,13 @@ defmodule TrafficLight.LightSettingTest do
     assert light_setting.green == false
   end
 
+  test "as_json" do
+    light_setting = %LightSetting{mode: "ci", red: true, yellow: false, green: false}
+    map = LightSetting.as_json(light_setting)
+
+    assert map == %{mode: "ci", red: true, yellow: false, green: false}
+  end
+
   test "to_json" do
     light_setting = %LightSetting{mode: "ci", red: true, yellow: false, green: false}
     json = LightSetting.to_json(light_setting)
