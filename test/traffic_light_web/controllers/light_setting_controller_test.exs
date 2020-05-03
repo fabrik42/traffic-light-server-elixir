@@ -5,9 +5,15 @@ defmodule TrafficLightWeb.LightSettingControllerTest do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
 
+  setup do
+    ls = TrafficLight.LightSetting.build()
+    {:ok, _} = TrafficLight.LightSettingServer.set(ls)
+    :ok
+  end
+
   test "show the light settings", %{conn: conn} do
     conn = get(conn, Routes.light_setting_path(conn, :show))
-    response = %{"green" => true, "mode" => "ci", "red" => true, "yellow" => true}
+    response = %{"green" => false, "mode" => "ci", "red" => false, "yellow" => false}
 
     assert response == json_response(conn, 200)["data"]
   end
