@@ -10,11 +10,11 @@ defmodule TrafficLightWeb.PageLive do
 
     if connected?(socket), do: LightSettingServer.subscribe()
 
-    initial_state =
+    initial_socket =
       socket
       |> assign(light_setting: light_setting)
 
-    {:ok, initial_state}
+    {:ok, initial_socket}
   end
 
   @impl true
@@ -29,6 +29,7 @@ defmodule TrafficLightWeb.PageLive do
 
   @impl true
   def handle_info({:light_setting_update, light_setting}, socket) do
+    # TODO: only assign if light_setting.mode == current_mode
     {:noreply, assign(socket, :light_setting, light_setting)}
   end
 end

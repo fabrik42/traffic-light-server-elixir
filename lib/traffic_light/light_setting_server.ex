@@ -52,12 +52,12 @@ defmodule TrafficLight.LightSettingServer do
     json = LightSetting.to_json(light_setting)
 
     {:ok, _} = Redix.command(conn, ["SET", key(), json])
-    broadcast_update!(light_setting)
+    broadcast(light_setting)
 
     {:reply, {:ok, light_setting}, state}
   end
 
-  defp broadcast_update!(light_setting) do
+  defp broadcast(light_setting) do
     Phoenix.PubSub.broadcast(
       TrafficLight.PubSub,
       "light_setting_server",
