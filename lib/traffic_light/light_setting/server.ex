@@ -1,4 +1,4 @@
-defmodule TrafficLight.LightSettingServer do
+defmodule TrafficLight.LightSetting.Server do
   use GenServer
 
   alias TrafficLight.LightSetting
@@ -9,12 +9,12 @@ defmodule TrafficLight.LightSettingServer do
     GenServer.start_link(__MODULE__, %{}, name: LightSettingLink)
   end
 
-  def get() do
-    GenServer.call(LightSettingLink, :get)
+  def get(light_mode) do
+    GenServer.call(LightSettingLink, {:get, light_mode})
   end
 
-  def set(light_setting) do
-    GenServer.call(LightSettingLink, {:set, light_setting})
+  def set(light_mode, light_setting) do
+    GenServer.call(LightSettingLink, {:set, light_mode, light_setting})
   end
 
   def subscribe() do
@@ -36,8 +36,8 @@ defmodule TrafficLight.LightSettingServer do
   end
 
   @impl true
-  def handle_call(:get, _from, %{conn: conn} = state) do
-    result = Redix.command(conn, ["GET", key()])
+  def handle_call({:get, light_mode}, _from, %{conn: conn} = state) do
+    result = Redix.command(conn, ["GET", key(light_mode)])
 
     return_value =
       case result do
@@ -49,10 +49,10 @@ defmodule TrafficLight.LightSettingServer do
   end
 
   @impl true
-  def handle_call({:set, light_setting}, _from, %{conn: conn} = state) do
+  def handle_call({:set, light_mode, light_setting}, _from, %{conn: conn} = state) do
     json = LightSetting.to_json(light_setting)
 
-    {:ok, _} = Redix.command(conn, ["SET", key(), json])
+    {:ok, _} = Redix.command(conn, ["SET", key(light_mode), json])
     broadcast(light_setting)
 
     {:reply, {:ok, light_setting}, state}
@@ -66,7 +66,7 @@ defmodule TrafficLight.LightSettingServer do
     )
   end
 
-  defp key do
-    "trafficlight:" <> LightSetting.current_mode()
+  defp key(light_mode) do
+    "trafficlight:" <> light_mode
   end
 end

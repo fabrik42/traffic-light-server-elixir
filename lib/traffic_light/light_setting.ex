@@ -1,4 +1,6 @@
 defmodule TrafficLight.LightSetting do
+  alias TrafficLight.LightSetting.Server
+
   defstruct mode: nil, red: nil, yellow: nil, green: nil
 
   @colors [:red, :yellow, :green]
@@ -12,7 +14,23 @@ defmodule TrafficLight.LightSetting do
   end
 
   def current_mode do
-    "ci"
+    Application.get_env(:traffic_light, :light_mode)
+  end
+
+  def website_update_allowed? do
+    current_mode() == "public"
+  end
+
+  def subscribe() do
+    Server.subscribe()
+  end
+
+  def save(light_setting, light_mode \\ current_mode()) do
+    Server.set(light_mode, light_setting)
+  end
+
+  def load(light_mode \\ current_mode()) do
+    Server.get(light_mode)
   end
 
   def from_json(nil), do: nil

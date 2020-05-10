@@ -5,7 +5,7 @@ defmodule TrafficLightWeb.PageLiveTest do
 
   setup do
     ls = TrafficLight.LightSetting.build()
-    {:ok, _} = TrafficLight.LightSettingServer.set(ls)
+    {:ok, _} = TrafficLight.LightSetting.save(ls)
     :ok
   end
 

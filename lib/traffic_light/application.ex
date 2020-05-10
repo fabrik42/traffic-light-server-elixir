@@ -15,7 +15,7 @@ defmodule TrafficLight.Application do
       TrafficLightWeb.Endpoint,
       # Start a worker by calling: TrafficLight.Worker.start_link(arg)
       # {TrafficLight.Worker, arg}
-      TrafficLight.LightSettingServer
+      TrafficLight.LightSetting.Server
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
