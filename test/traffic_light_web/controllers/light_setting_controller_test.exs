@@ -15,6 +15,6 @@ defmodule TrafficLightWeb.LightSettingControllerTest do
     conn = get(conn, Routes.light_setting_path(conn, :show))
     response = %{"green" => false, "mode" => "ci", "red" => false, "yellow" => false}
 
-    assert response == json_response(conn, 200)["data"]
+    assert response == json_response(conn, 200)
   end
 end
