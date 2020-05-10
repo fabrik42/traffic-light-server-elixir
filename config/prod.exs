@@ -52,7 +52,14 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
+# Redis connection data
 config :traffic_light, :redis, url: System.get_env("REDIS_URL")
+
+# The mode the traffic light should be operated in
+config :traffic_light, :light_mode, System.get_env("LIGHT_MODE")
+
+# The secret token that allows the CI webhook to update the lights
+config :traffic_light, :ci_secret, System.get_env("CI_SECRET")
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.

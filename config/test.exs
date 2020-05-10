@@ -9,4 +9,11 @@ config :traffic_light, TrafficLightWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Redis connection data
 config :traffic_light, :redis, url: "redis://localhost"
+
+# The mode the traffic light should be operated in
+config :traffic_light, :light_mode, "public"
+
+# The secret token that allows the CI webhook to update the lights
+config :traffic_light, :ci_secret, "MY-SECRET-CI-TOKEN"

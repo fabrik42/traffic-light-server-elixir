@@ -55,7 +55,14 @@ config :traffic_light, TrafficLightWeb.Endpoint,
     ]
   ]
 
+# Redis connection data
 config :traffic_light, :redis, url: "redis://localhost"
+
+# The mode the traffic light should be operated in
+config :traffic_light, :light_mode, "public"
+
+# The secret token that allows the CI webhook to update the lights
+config :traffic_light, :ci_secret, "MY-SECRET-CI-TOKEN"
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
