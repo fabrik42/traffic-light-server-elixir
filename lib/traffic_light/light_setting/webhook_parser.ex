@@ -1,6 +1,18 @@
 defmodule TrafficLight.LightSetting.WebhookParser do
   alias TrafficLight.LightSetting
 
+  @codeship_state_map %{
+    "error" => :red,
+    "stopped" => :red,
+    "ignored" => :red,
+    "blocked" => :red,
+    "infrastructure_failure" => :red,
+    "initiated" => :yellow,
+    "waiting" => :yellow,
+    "testing" => :yellow,
+    "success" => :green
+  }
+
   def from_codeship(raw_json) do
     with(
       {:ok, payload} <- Poison.decode(raw_json),
@@ -19,16 +31,10 @@ defmodule TrafficLight.LightSetting.WebhookParser do
 
   def color_from_status(payload) do
     status = get_in(payload, ["build", "status"])
-    do_color_from_status(status)
+
+    case Map.get(@codeship_state_map, status) do
+      nil -> {:error, "Unknown build state: #{status}"}
+      color -> {:ok, color}
+    end
   end
-
-  defp do_color_from_status(status)
-       when status in ["error", "stopped", "ignored", "blocked", "infrastructure_failure"],
-       do: {:ok, :red}
-
-  defp do_color_from_status(status) when status in ["initiated", "waiting", "testing"],
-    do: {:ok, :yellow}
-
-  defp do_color_from_status(status) when status in ["success"], do: {:ok, :green}
-  defp do_color_from_status(status), do: {:error, "Unknown build state: #{status}"}
 end
