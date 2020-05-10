@@ -1,4 +1,4 @@
-defmodule TrafficLight.LightSetting.ViewHelper.Test do
+defmodule TrafficLight.LightSetting.ViewHelperTest do
   use ExUnit.Case
   doctest TrafficLight.LightSetting.ViewHelper
 
