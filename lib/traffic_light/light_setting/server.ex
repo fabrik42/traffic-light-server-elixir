@@ -53,7 +53,10 @@ defmodule TrafficLight.LightSetting.Server do
     json = LightSetting.to_json(light_setting)
 
     {:ok, _} = Redix.command(conn, ["SET", key(light_mode), json])
-    broadcast(light_setting)
+
+    if light_mode == LightSetting.current_mode() do
+      broadcast(light_setting)
+    end
 
     {:reply, {:ok, light_setting}, state}
   end
