@@ -8,3 +8,5 @@ config :traffic_light, TrafficLightWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :traffic_light, :redis, url: "redis://localhost"

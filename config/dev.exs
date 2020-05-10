@@ -55,6 +55,8 @@ config :traffic_light, TrafficLightWeb.Endpoint,
     ]
   ]
 
+config :traffic_light, :redis, url: "redis://localhost"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
