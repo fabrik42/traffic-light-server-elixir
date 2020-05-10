@@ -1,10 +1,10 @@
-<div id="top-bar" class="<%= LightSetting.top_bar_class_name(@light_setting)%>"></div>
+<div id="top-bar" class="<%= ViewHelper.top_bar_class_name(@light_setting)%>"></div>
 
 <div id="container">
   <ul id="switch">
     <%= for c <- LightSetting.ordered_colors do %>
       <li>
-        <a href="#" data-state="<%= LightSetting.switch_value(@light_setting, c) %>" data-color="<%= c %>" phx-click="set_color" phx-value-color="<%= c %>" phx-value-new-state="<%= LightSetting.opposite_switch_value(@light_setting, c) %>"></a>
+        <a href="#" data-state="<%= ViewHelper.switch_value(@light_setting, c) %>" data-color="<%= c %>" phx-click="set_color" phx-value-color="<%= c %>" phx-value-new-state="<%= ViewHelper.opposite_switch_value(@light_setting, c) %>"></a>
       </li>
     <% end %>
   </ul>

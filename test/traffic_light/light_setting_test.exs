@@ -9,8 +9,17 @@ defmodule TrafficLight.LightSettingTest do
     assert LightSetting.build() == light_setting
   end
 
+  test "ordered colors" do
+    assert LightSetting.ordered_colors() == [:red, :yellow, :green]
+  end
+
   test "returns current mode" do
     assert LightSetting.current_mode() == "public"
+  end
+
+  test "website_update_allowed?" do
+    assert LightSetting.current_mode() == "public"
+    assert LightSetting.website_update_allowed?() == true
   end
 
   test "is a struct" do
@@ -46,32 +55,6 @@ defmodule TrafficLight.LightSettingTest do
   test "from_json is nil-safe" do
     parsed = LightSetting.from_json(nil)
     assert parsed == nil
-  end
-
-  test "switch_value" do
-    light_setting = %LightSetting{mode: "ci", red: true, yellow: false, green: false}
-    assert LightSetting.switch_value(light_setting, :red) == "on"
-    assert LightSetting.switch_value(light_setting, :green) == "off"
-  end
-
-  test "opposite_switch_value" do
-    light_setting = %LightSetting{mode: "ci", red: true, yellow: false, green: false}
-    assert LightSetting.opposite_switch_value(light_setting, :red) == "off"
-    assert LightSetting.opposite_switch_value(light_setting, :green) == "on"
-  end
-
-  test "top_bar_class_name" do
-    red_only = %LightSetting{mode: "ci", red: true, yellow: false, green: false}
-    assert LightSetting.top_bar_class_name(red_only) == "red"
-
-    yellow_only = %LightSetting{mode: "ci", red: false, yellow: true, green: false}
-    assert LightSetting.top_bar_class_name(yellow_only) == "yellow"
-
-    green_only = %LightSetting{mode: "ci", red: false, yellow: false, green: true}
-    assert LightSetting.top_bar_class_name(green_only) == "green"
-
-    multi = %LightSetting{mode: "ci", red: true, yellow: true, green: false}
-    assert LightSetting.top_bar_class_name(multi) == ""
   end
 
   test "update_color with valid input" do

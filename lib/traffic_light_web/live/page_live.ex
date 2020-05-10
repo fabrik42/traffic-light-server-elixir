@@ -2,6 +2,7 @@ defmodule TrafficLightWeb.PageLive do
   use TrafficLightWeb, :live_view
 
   alias TrafficLight.LightSetting
+  alias TrafficLight.LightSetting.ViewHelper
 
   @impl true
   def mount(_params, _session, socket) do
