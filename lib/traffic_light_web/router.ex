@@ -1,8 +1,6 @@
 defmodule TrafficLightWeb.Router do
   use TrafficLightWeb, :router
 
-  alias TrafficLightWeb.LightSettingController
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -14,8 +12,6 @@ defmodule TrafficLightWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-
-    resources "/lights", LightSettingController, only: [:show], singleton: true
   end
 
   scope "/", TrafficLightWeb do
@@ -24,10 +20,11 @@ defmodule TrafficLightWeb.Router do
     live "/", PageLive, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TrafficLightWeb do
-  #   pipe_through :api
-  # end
+  scope "/", TrafficLightWeb do
+    pipe_through :api
+
+    resources "/lights", LightSettingController, only: [:show], singleton: true
+  end
 
   # Enables LiveDashboard only for development
   #
