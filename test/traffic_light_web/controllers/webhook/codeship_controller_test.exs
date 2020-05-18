@@ -4,16 +4,17 @@ defmodule TrafficLightWeb.Webhook.CodeshipControllerTest do
   alias TrafficLight.LightSetting
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "content-type", "application/json")}
+    {:ok,
+     conn: put_req_header(conn, "content-type", "application/json"), token: "MY-SECRET-CI-TOKEN"}
   end
 
-  test "update the build status", %{conn: conn} do
+  test "update the build status", %{conn: conn, token: token} do
     red = LightSetting.build(mode: "ci", red: true)
     {:ok, _} = LightSetting.save(red, "ci")
     assert LightSetting.load("ci") == {:ok, red}
 
     payload = build_payload("success")
-    conn = post(conn, Routes.codeship_path(conn, :create), payload)
+    conn = post(conn, Routes.codeship_path(conn, :create, token: token), payload)
 
     assert %{"success" => true} == json_response(conn, 201)
 
@@ -21,18 +22,25 @@ defmodule TrafficLightWeb.Webhook.CodeshipControllerTest do
     assert LightSetting.load("ci") == {:ok, green}
   end
 
-  test "don't update the build status with invalid data", %{conn: conn} do
+  test "don't update the build status with invalid data", %{conn: conn, token: token} do
     red = LightSetting.build(mode: "ci", red: true)
     {:ok, _} = LightSetting.save(red, "ci")
     assert LightSetting.load("ci") == {:ok, red}
 
     payload = build_payload("UNKNOWN_STATE")
-    conn = post(conn, Routes.codeship_path(conn, :create), payload)
+    conn = post(conn, Routes.codeship_path(conn, :create, token: token), payload)
 
     expected = %{"success" => false, "error" => "Unknown build state: UNKNOWN_STATE"}
 
     assert expected == json_response(conn, 422)
     assert LightSetting.load("ci") == {:ok, red}
+  end
+
+  test "don't update the build status without valid token", %{conn: conn} do
+    payload = build_payload("UNKNOWN_STATE")
+    conn = post(conn, Routes.codeship_path(conn, :create), payload)
+
+    assert "Unauthorized" == response(conn, 401)
   end
 
   # TODO: deduplicate and move to test helpers

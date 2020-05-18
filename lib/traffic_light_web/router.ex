@@ -1,6 +1,8 @@
 defmodule TrafficLightWeb.Router do
   use TrafficLightWeb, :router
 
+  alias TrafficLightWeb.Plugs.WebhookToken
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -16,6 +18,7 @@ defmodule TrafficLightWeb.Router do
 
   pipeline :webhooks do
     plug :accepts, ["json"]
+    plug WebhookToken, token: Application.get_env(:traffic_light, :ci_secret)
   end
 
   scope "/", TrafficLightWeb do
