@@ -14,6 +14,10 @@ defmodule TrafficLightWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :webhooks do
+    plug :accepts, ["json"]
+  end
+
   scope "/", TrafficLightWeb do
     pipe_through :browser
 
@@ -24,6 +28,12 @@ defmodule TrafficLightWeb.Router do
     pipe_through :api
 
     resources "/lights", LightSettingController, only: [:show], singleton: true
+  end
+
+  scope "/webhooks", TrafficLightWeb do
+    pipe_through :webhooks
+
+    resources "/codeship", Webhook.CodeshipController, only: [:create], singleton: true
   end
 
   # Enables LiveDashboard only for development
