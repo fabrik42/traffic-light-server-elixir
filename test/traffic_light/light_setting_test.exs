@@ -9,6 +9,11 @@ defmodule TrafficLight.LightSettingTest do
     assert LightSetting.build() == light_setting
   end
 
+  test "build with custom options" do
+    light_setting = %LightSetting{mode: "ci", red: true, yellow: false, green: false}
+    assert LightSetting.build(mode: "ci", red: true) == light_setting
+  end
+
   test "ordered colors" do
     assert LightSetting.ordered_colors() == [:red, :yellow, :green]
   end

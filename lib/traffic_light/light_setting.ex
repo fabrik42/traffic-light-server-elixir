@@ -5,8 +5,12 @@ defmodule TrafficLight.LightSetting do
 
   @colors [:red, :yellow, :green]
 
-  def build do
-    %__MODULE__{mode: current_mode(), red: false, yellow: false, green: false}
+  def build(attrs \\ %{}) do
+    new = %__MODULE__{mode: current_mode(), red: false, yellow: false, green: false}
+
+    Enum.reduce(attrs, new, fn {attr, val}, acc ->
+      Map.replace!(acc, attr, val)
+    end)
   end
 
   def ordered_colors do
