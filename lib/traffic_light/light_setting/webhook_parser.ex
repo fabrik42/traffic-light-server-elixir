@@ -13,19 +13,18 @@ defmodule TrafficLight.LightSetting.WebhookParser do
     "success" => :green
   }
 
-  def from_codeship(raw_json) do
-    with(
-      {:ok, payload} <- Poison.decode(raw_json),
-      {:ok, color} <- color_from_status(payload)
-    ) do
-      light_setting =
-        LightSetting.build()
-        |> Map.put(:mode, "ci")
-        |> Map.put(color, true)
+  def from_codeship(payload) do
+    case color_from_status(payload) do
+      {:ok, color} ->
+        light_setting =
+          LightSetting.build()
+          |> Map.put(:mode, "ci")
+          |> Map.put(color, true)
 
-      {:ok, light_setting}
-    else
-      {:error, error_message} -> {:error, error_message}
+        {:ok, light_setting}
+
+      {:error, error_message} ->
+        {:error, error_message}
     end
   end
 

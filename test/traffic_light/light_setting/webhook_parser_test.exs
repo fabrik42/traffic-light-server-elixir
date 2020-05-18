@@ -5,11 +5,6 @@ defmodule TrafficLight.LightSetting.WebhookParserTest do
   alias TrafficLight.LightSetting
   alias TrafficLight.LightSetting.WebhookParser
 
-  test "from codeship with invalid json" do
-    invalid_json = "@INVALID JSON"
-    assert WebhookParser.from_codeship(invalid_json) == {:error, {:invalid, "@", 0}}
-  end
-
   test "from codeship with unknown build sate" do
     payload = build_payload("another_state")
     assert WebhookParser.from_codeship(payload) == {:error, "Unknown build state: another_state"}
@@ -47,7 +42,7 @@ defmodule TrafficLight.LightSetting.WebhookParserTest do
 
   # Payload taken from https://documentation.codeship.com/general/projects/notifications/
   def build_payload(status) do
-    ~s(
+    Poison.decode!(~s(
       {
         "build": {
           "build_url":"https://www.codeship.com/projects/10213/builds/973711",
@@ -65,6 +60,6 @@ defmodule TrafficLight.LightSetting.WebhookParserTest do
           "branch":"master"
         }
       }
-    )
+    ))
   end
 end
