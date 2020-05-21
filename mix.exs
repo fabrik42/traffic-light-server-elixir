@@ -47,7 +47,9 @@ defmodule TrafficLight.MixProject do
       {:redix, ">= 0.0.0"},
       {:castore, ">= 0.0.0"},
       # json
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      # code quality
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 
