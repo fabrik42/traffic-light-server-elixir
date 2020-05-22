@@ -1,4 +1,8 @@
 defmodule TrafficLight.LightSetting.WebhookParser do
+  @moduledoc """
+  Parses the payload sent through webhooks by CI services.
+  """
+
   alias TrafficLight.LightSetting
 
   @codeship_state_map %{

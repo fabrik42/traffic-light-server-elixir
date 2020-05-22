@@ -1,4 +1,9 @@
 defmodule TrafficLightWeb.Plugs.WebhookToken do
+  @moduledoc """
+  Makes sure only allowed clients can use the webhook endpoints.
+  It makes sure a secret token is passed along in the URL to prevent unauthorized access.
+  """
+
   import Plug.Conn
 
   def init(opts), do: opts

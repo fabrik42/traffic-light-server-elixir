@@ -1,4 +1,8 @@
 defmodule TrafficLight.LightSetting.Server do
+  @moduledoc """
+  Handles persistence of the light settings and promotes updates of the current light mode.
+  """
+
   use GenServer
 
   alias TrafficLight.LightSetting
@@ -17,7 +21,7 @@ defmodule TrafficLight.LightSetting.Server do
     GenServer.call(LightSettingLink, {:set, light_mode, light_setting})
   end
 
-  def subscribe() do
+  def subscribe do
     Phoenix.PubSub.subscribe(TrafficLight.PubSub, "light_setting_server")
   end
 

@@ -1,4 +1,9 @@
 defmodule TrafficLightWeb.PageLive do
+  @moduledoc """
+  Renders the light setting of the active light mode as traffic light on the website.
+  Depending on the light mode, it might also allow updating the light settings.
+  """
+
   use TrafficLightWeb, :live_view
 
   alias TrafficLight.LightSetting

@@ -1,4 +1,8 @@
 defmodule TrafficLight.LightSetting do
+  @moduledoc """
+  The light setting contains a combination of colors for the traffic light.
+  """
+
   alias TrafficLight.LightSetting.Server
 
   defstruct mode: nil, red: nil, yellow: nil, green: nil
@@ -25,7 +29,7 @@ defmodule TrafficLight.LightSetting do
     current_mode() == "public"
   end
 
-  def subscribe() do
+  def subscribe do
     Server.subscribe()
   end
 

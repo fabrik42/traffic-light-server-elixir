@@ -1,4 +1,8 @@
 defmodule TrafficLight.LightSetting.ViewHelper do
+  @moduledoc """
+  Collection of helper functions to be used for rendering the light setting of the traffic light.
+  """
+
   def switch_value(light_setting, color) do
     value = Map.get(light_setting, color)
     if value, do: "on", else: "off"
