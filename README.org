@@ -30,6 +30,26 @@ Content-Type: application/json
   }
 }
 #+end_src
+
+* Deploy on Heroku
+Install the Heroku Redis addon. This will also provide you with the =REDIS_URL= environment variable.
+
+Make sure all other required environment variables have been set.
+
+Open a new iex console on Heroku.
+
+#+begin_src sh
+heroku run iex -S mix
+#+end_src
+
+Setup some initial data for each mode:
+
+#+begin_src elixir
+ls = TrafficLight.LightSetting.build(mode: "ci")
+TrafficLight.LightSetting.save(ls, "ci")
+ls = TrafficLight.LightSetting.build(mode: "public")
+TrafficLight.LightSetting.save(ls, "public")
+#+end_src
 * Misc Links
 - [[https://github.com/fabrik42/traffic-light-server][fabrik42/traffic-light-server: The original server built with node.js]]
 - [[https://github.com/fabrik42/traffic-light-client-elixir][fabrik42/traffic-light-client-elixir: A web controlled traffic light for Raspberry PI, powered by Elixir and Nerves]]
