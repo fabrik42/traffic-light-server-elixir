@@ -64,6 +64,11 @@ config :traffic_light, :light_mode, "public"
 # The secret token that allows the CI webhook to update the lights
 config :traffic_light, :ci_secret, "MY-SECRET-CI-TOKEN"
 
+# Credentials used for basic authentication for the dashboard
+config :traffic_light, :dashboard_auth,
+  username: "admin",
+  password: "password"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

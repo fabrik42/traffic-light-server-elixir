@@ -61,6 +61,11 @@ config :traffic_light, :light_mode, System.get_env("LIGHT_MODE")
 # The secret token that allows the CI webhook to update the lights
 config :traffic_light, :ci_secret, System.get_env("CI_SECRET")
 
+# Credentials used for basic authentication for the dashboard
+config :traffic_light, :dashboard_auth,
+  username: System.get_env("DASHBOARD_AUTH_USERNAME"),
+  password: System.get_env("DASHBOARD_AUTH_PASSWORD")
+
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
 import_config "prod.secret.exs"

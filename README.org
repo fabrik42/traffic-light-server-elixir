@@ -34,7 +34,14 @@ Content-Type: application/json
 * Deploy on Heroku
 Install the Heroku Redis addon. This will also provide you with the =REDIS_URL= environment variable.
 
-Make sure all other required environment variables have been set.
+Make sure all other required environment variables have been set by you using =heroku config=.
+
+#+begin_src sh
+heroku config:set CI_SECRET=YOURSECRET
+heroku config:set LIGHT_MODE=public
+heroku config:set DASHBOARD_AUTH_USERNAME=ADMIN
+heroku config:set DASHBOARD_AUTH_PASSWORD=PASSWORD
+#+end_src
 
 Open a new iex console on Heroku.
 
