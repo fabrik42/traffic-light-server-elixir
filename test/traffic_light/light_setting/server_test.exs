@@ -5,6 +5,12 @@ defmodule TrafficLight.LightSetting.ServerTest do
   alias TrafficLight.LightSetting
   alias TrafficLight.LightSetting.Server
 
+  setup do
+    {:ok, _} = Server.set("ci", LightSetting.build(mode: "ci"))
+    {:ok, _} = Server.set("public", LightSetting.build(mode: "public"))
+    :ok
+  end
+
   test "Persist the light setting" do
     light_setting = LightSetting.build(mode: "ci", green: true)
 
