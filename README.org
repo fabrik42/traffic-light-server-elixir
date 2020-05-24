@@ -1,14 +1,14 @@
-#+html: <p align="center"> <img width="352" height="612" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/assets/doc/web_ui.png"></p>
+#+html: <p align="center"> <img width="176" height="306" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/assets/doc/web_ui.png"></p>
 * Traffic Light Server
 This is a small Elixir server with the purpose to configure and serve a light configuration to a real traffic light, like this one:
 
-It is meant to be used with a corresponding client to read the light and do something awesome with it.
+#+html: <p align="center"> <img width="350" height="350" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/assets/doc/real_traffic_light_square.jpg"></p>
 
-An example is [[https://github.com/fabrik42/traffic-light-client-elixir][a client running on a Raspberry PI]] that fetches the light configuration of this app and displays it on a real traffic light.
+It is meant to be used with a corresponding client to read the light and do something awesome with it. An example is [[https://github.com/fabrik42/traffic-light-client-elixir][a client running on a Raspberry PI]] that fetches the light configuration of this app and displays it on a real traffic light.
 
-It features the following capabilities:
-- LiveView-powered web UI to view a virtual traffic light
-- JSON API to connect a real traffic light client
+The server features the following capabilities:
+- LiveView-powered web UI to view a virtual traffic light.
+- JSON API to connect a real traffic light client.
 - Webhook API to receive status updates from CI services like [[https://documentation.codeship.com/general/projects/notifications/][Codeship]].
 - Interactive "public" mode where you can control the traffic light with the web UI.
 * Light Modes
@@ -87,6 +87,19 @@ TrafficLight.LightSetting.save(ls, "ci")
 ls = TrafficLight.LightSetting.build(mode: "public")
 TrafficLight.LightSetting.save(ls, "public")
 #+end_src
+* A little bit of Traffic Light history
+This traffic light project exists roughly since 2011. I use this side project as a form of recreational programming and joyful overengineering.
+
+The software/hardware project has seen many stages:
+- Connected to a Synology NAS with a self-soldered [[https://www.velleman.eu/products/view/?country=be&lang=de&id=351346][Velleman K8055]] USB experimentation board.
+- Connected to a Raspberry PI, running a Ruby script locally, node.js on the server side.
+- Wiring mostly replaced by a custom etched circuit board - a Raspberry shield built only for the purpose of changing the traffic light (and debugging it).
+- Replacement of the Raspbian/Ruby client with Elixir Nerves.
+- Replacement of the node.js server with Elixir/Phoenix.
+
+The physical traffic light has been set up at two companies and four offices, motivating me and many others to keep your CI green and clean.
+
+It also had [[https://traffic-light.tumblr.com/][its own dedicated blog]], showing the appearances of the traffic light in different articles and videos as it was a welcome guest in German media.
 * Misc Links
 - [[https://github.com/fabrik42/traffic-light-client-elixir][fabrik42/traffic-light-client-elixir: A web controlled traffic light for Raspberry PI, powered by Elixir and Nerves]]
 - [[https://github.com/fabrik42/traffic-light-server][fabrik42/traffic-light-server: The original server built with node.js]]
