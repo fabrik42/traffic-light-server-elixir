@@ -1,9 +1,4 @@
-#+BEGIN_EXPORT html
-<p align="center">
-  <img width="352" height="612" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/_github_doc/web_ui.png">
-</p>
-#+END_EXPORT
-
+#+html: <p align="center"> <img width="352" height="612" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/assets/doc/web_ui.png"></p>
 * Traffic Light Server
 This is a small Elixir server with the purpose to configure and serve a light configuration to a real traffic light, like this one:
 
