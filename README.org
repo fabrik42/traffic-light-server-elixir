@@ -1,11 +1,41 @@
+#+BEGIN_EXPORT html
+<p align="center">
+  <img width="352" height="612" src="./doc/web_ui.png">
+</p>
+#+END_EXPORT
+
 * Traffic Light Server
+This is a small Elixir server with the purpose to configure and serve a light configuration to a real traffic light, like this one:
 
-Start server with
+It is meant to be used with a corresponding client to read the light and do something awesome with it.
 
-#+begin_src sh
-iex -S mix phx.server
+An example is [[https://github.com/fabrik42/traffic-light-client-elixir][a client running on a Raspberry PI]] that fetches the light configuration of this app and displays it on a real traffic light.
+
+It features the following capabilities:
+- LiveView-powered web UI to view a virtual traffic light
+- JSON API to connect a real traffic light client
+- Webhook API to receive status updates from CI services like [[https://documentation.codeship.com/general/projects/notifications/][Codeship]].
+- Interactive "public" mode where you can control the traffic light with the web UI.
+* Light Modes
+When in =public= mode, the light configuration can be changed by clicking on the corresponding lights on the UI.
+
+In =ci= mode the web UI is read-only and only shows the current status.
+
+Just change the heroku env variable like this =heroku config:set LIGHT_MODE=public=, heroku will automatically restart your app and the new light mode is applied.
+* JSON API
+
+#+begin_src restclient
+GET http://localhost:4000/lights
 #+end_src
 
+#+BEGIN_SRC js
+{
+  "green": true,
+  "mode": "public",
+  "red": false,
+  "yellow": false
+}
+#+END_SRC
 * Webhook API
 Example for a webhook for codeship (the only supported webooks right now):
 
@@ -30,7 +60,12 @@ Content-Type: application/json
   }
 }
 #+end_src
+* Development
+Start server with
 
+#+begin_src sh
+iex -S mix phx.server
+#+end_src
 * Deploy on Heroku
 Install the Heroku Redis addon. This will also provide you with the =REDIS_URL= environment variable.
 
@@ -58,8 +93,8 @@ ls = TrafficLight.LightSetting.build(mode: "public")
 TrafficLight.LightSetting.save(ls, "public")
 #+end_src
 * Misc Links
-- [[https://github.com/fabrik42/traffic-light-server][fabrik42/traffic-light-server: The original server built with node.js]]
 - [[https://github.com/fabrik42/traffic-light-client-elixir][fabrik42/traffic-light-client-elixir: A web controlled traffic light for Raspberry PI, powered by Elixir and Nerves]]
-* Dependencies
-- [[https://github.com/whatyouhide/redix][redix: Fast, pipelined, resilient Redis driver for Elixir]]
-- [[https://github.com/devinus/poison][poison: An incredibly fast, pure Elixir JSON library]]
+- [[https://github.com/fabrik42/traffic-light-server][fabrik42/traffic-light-server: The original server built with node.js]]
+- [[https://github.com/fabrik42/traffic-light-client-raspberry][fabrik42/traffic-light-client-raspberry: A former implementation based on Ruby]]
+
+🚥 ❤ 🚥
