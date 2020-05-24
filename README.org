@@ -100,9 +100,5 @@ The software/hardware project has seen many stages:
 The physical traffic light has been set up at two companies and four offices, motivating me and many others to keep your CI green and clean.
 
 It also had [[https://traffic-light.tumblr.com/][its own dedicated blog]], showing the appearances of the traffic light in different articles and videos as it was a welcome guest in German media.
-* Misc Links
-- [[https://github.com/fabrik42/traffic-light-client-elixir][fabrik42/traffic-light-client-elixir: A web controlled traffic light for Raspberry PI, powered by Elixir and Nerves]]
-- [[https://github.com/fabrik42/traffic-light-server][fabrik42/traffic-light-server: The original server built with node.js]]
-- [[https://github.com/fabrik42/traffic-light-client-raspberry][fabrik42/traffic-light-client-raspberry: A former implementation based on Ruby]]
 
 🚥 ❤ 🚥
