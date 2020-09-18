@@ -1,7 +1,7 @@
 #+html: <p align="center"> <img width="176" height="306" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/assets/doc/web_ui.png"></p>
 * Traffic Light Server
 This is a small Elixir server with the purpose to configure and serve a light configuration to a real traffic light, like this one:
-test123
+test-and-back-again
 #+html: <p align="center"> <img width="350" height="350" src="https://raw.githubusercontent.com/fabrik42/traffic-light-server-elixir/master/assets/doc/real_traffic_light_square.jpg"></p>
 
 It is meant to be used with a corresponding client to read the light and do something awesome with it. An example is [[https://github.com/fabrik42/traffic-light-client-elixir][a client running on a Raspberry PI]] that fetches the light configuration of this app and displays it on a real traffic light.
