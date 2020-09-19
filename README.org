@@ -32,8 +32,14 @@ GET http://localhost:4000/lights
 }
 #+END_SRC
 * Webhook API
-Example for a webhook for codeship (the only supported webooks right now):
+** Example for a webhook for GitHub checks
+#+begin_src restclient
+POST http://localhost:4000/webhooks/github?token=MY-SECRET-CI-TOKEN
+Content-Type: application/json
 
+...
+#+end_src
+** Example for a webhook for CodeShip
 #+begin_src restclient
 POST http://localhost:4000/webhooks/codeship?token=MY-SECRET-CI-TOKEN
 Content-Type: application/json
