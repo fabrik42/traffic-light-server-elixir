@@ -2,10 +2,10 @@ defmodule TrafficLightWeb.Webhook.CodeshipController do
   use TrafficLightWeb, :controller
 
   alias TrafficLight.LightSetting
-  alias TrafficLight.LightSetting.WebhookParser
+  alias TrafficLight.LightSetting.WebhookParser.CodeShip
 
   def create(conn, _params) do
-    with {:ok, light_setting} <- WebhookParser.from_codeship(conn.body_params),
+    with {:ok, light_setting} <- CodeShip.from_payload(conn.body_params),
          {:ok, _result} <- LightSetting.save(light_setting, "ci") do
       conn
       |> put_status(201)
