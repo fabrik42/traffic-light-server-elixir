@@ -1,6 +1,6 @@
-defmodule TrafficLight.LightSetting.WebhookParser.CodeShip do
+defmodule TrafficLight.LightSetting.WebhookParser.Codeship do
   @moduledoc """
-  Parses the payload sent through webhooks by CodeShip.
+  Parses the payload sent through webhooks by Codeship.
   """
 
   alias TrafficLight.LightSetting

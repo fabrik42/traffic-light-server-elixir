@@ -9,7 +9,7 @@ It is meant to be used with a corresponding client to read the light and do some
 The server features the following capabilities:
 - LiveView-powered web UI to view a virtual traffic light.
 - JSON API to connect a real traffic light client.
-- Webhook API to receive status updates from CI services like [[https://documentation.codeship.com/general/projects/notifications/][Codeship]].
+- Webhook API to receive status updates from CI services like [[https://documentation.codeship.com/general/projects/notifications/][CodeShip]].
 - Interactive "public" mode where you can control the traffic light with the web UI.
 * Light Modes
 When in =public= mode, the light configuration can be changed by clicking on the corresponding lights on the UI.

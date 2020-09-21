@@ -1,4 +1,4 @@
-defmodule TrafficLight.LightSetting.WebhookParser.GitHub do
+defmodule TrafficLight.LightSetting.WebhookParser.Github do
   @moduledoc """
   Parses the payload sent through webhooks by GitHub.
   """
