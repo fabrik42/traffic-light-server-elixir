@@ -44,6 +44,7 @@ defmodule TrafficLightWeb.Router do
     pipe_through :webhooks
 
     resources "/codeship", Webhook.CodeshipController, only: [:create], singleton: true
+    resources "/github", Webhook.GithubController, only: [:create], singleton: true
   end
 
   scope "/" do
