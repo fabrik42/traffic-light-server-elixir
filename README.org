@@ -58,8 +58,15 @@ More information can be found here:
 POST http://localhost:4000/webhooks/github?token=MY-SECRET-CI-TOKEN
 Content-Type: application/json
 
-...
+{
+  "action": "created",
+  "check_run": {
+    "status": "queued",
+    "conclusion": null,
+  }
+}
 #+end_src
+
 ** Example for a webhook for CodeShip
 #+begin_src restclient
 POST http://localhost:4000/webhooks/codeship?token=MY-SECRET-CI-TOKEN
