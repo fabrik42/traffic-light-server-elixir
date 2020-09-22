@@ -48,6 +48,8 @@ The traffic light will turn ~yellow~ when a check run is started and will turn e
 
 The reason why both events are needed is because repository-based webhooks only receive a call for check suites when they are finished, but not when they are started.
 
+Additionally there is currently no way to [[https://dev.to/gr2m/github-api-how-to-retrieve-the-combined-pull-request-status-from-commit-statuses-check-runs-and-github-action-results-2cen][retrieve the combined pull request status]]. This project should not get access to the GitHub data of a repo on its own. So right now we stay with webhooks even though they might jump between results when multiple actions are called.
+
 More information can be found here:
 - [[https://docs.github.com/en/rest/reference/checks#in-this-article][Checks - GitHub Docs]]
 - [[https://docs.github.com/en/developers/apps/creating-ci-tests-with-the-checks-api][Creating CI tests with the Checks API - GitHub Docs]]
