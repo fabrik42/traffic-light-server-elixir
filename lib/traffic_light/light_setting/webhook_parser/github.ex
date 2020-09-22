@@ -7,32 +7,13 @@ defmodule TrafficLight.LightSetting.WebhookParser.Github do
 
   @github_state_map %{
     "failure" => :red,
-    "cancelled" => :red,
-    "timed_out" => :red,
-    "stale" => :red,
-    "queued" => :yellow,
-    "in_progress" => :yellow,
-    "neutral" => :yellow,
-    "action_required" => :yellow,
+    "error" => :red,
+    "pending" => :yellow,
     "success" => :green
   }
 
-  def from_payload(payload) when is_map_key(payload, "check_run") do
-    status = get_in(payload, ["check_run", "status"])
-    set_color_from_status(status)
-  end
-
-  def from_payload(payload) when is_map_key(payload, "check_suite") do
-    status = get_in(payload, ["check_suite", "conclusion"])
-    set_color_from_status(status)
-  end
-
-  def from_payload(_payload) do
-    {:error, "Unknown payload: Ignoring"}
-  end
-
-  defp set_color_from_status(status) do
-    case color_from_status(status) do
+  def from_payload(payload) do
+    case color_from_status(payload) do
       {:ok, color} ->
         light_setting =
           LightSetting.build()
@@ -46,7 +27,9 @@ defmodule TrafficLight.LightSetting.WebhookParser.Github do
     end
   end
 
-  def color_from_status(status) do
+  def color_from_status(payload) do
+    status = get_in(payload, ["state"])
+
     case Map.get(@github_state_map, status) do
       nil -> {:error, "Unknown build state: #{status}"}
       color -> {:ok, color}
