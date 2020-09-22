@@ -40,10 +40,18 @@ For GitHub you can setup webhooks within your repository:
 #+end_src
 
 Make sure to only choose the following webhook events:
-- [[https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#status][Status]]
+
+- [[https://developer.github.com/webhooks/event-payloads/#check_run][Check runs]]
+- [[https://developer.github.com/webhooks/event-payloads/#check_suite][Check suites]]
+
+The traffic light will turn ~yellow~ when a check run is started and will turn either ~red~ or ~green~ when a check suite was finished.
+
+The reason why both events are needed is because repository-based webhooks only receive a call for check suites when they are finished, but not when they are started.
 
 More information can be found here:
-- [[https://developer.github.com/v3/repos/statuses/][Statuses | GitHub Developer Guide]]
+- [[https://docs.github.com/en/rest/reference/checks#in-this-article][Checks - GitHub Docs]]
+- [[https://docs.github.com/en/developers/apps/creating-ci-tests-with-the-checks-api][Creating CI tests with the Checks API - GitHub Docs]]
+- [[https://docs.github.com/en/rest/guides/getting-started-with-the-checks-api][Getting started with the Checks API - GitHub Docs]]
 - [[https://docs.github.com/en/developers/webhooks-and-events/testing-webhooks][Testing webhooks - GitHub Docs]]
 
 #+begin_src restclient
@@ -51,13 +59,11 @@ POST http://localhost:4000/webhooks/github?token=MY-SECRET-CI-TOKEN
 Content-Type: application/json
 
 {
-  "id": 6805126730,
-  "sha": "6113728f27ae82c7b1a177c8d03f9e96e0adf246",
-  "name": "Codertocat/Hello-World",
-  "target_url": null,
-  "context": "default",
-  "description": null,
-  "state": "success",
+  "action": "created",
+  "check_run": {
+    "status": "queued",
+    "conclusion": null,
+  }
 }
 #+end_src
 

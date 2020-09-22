@@ -13,7 +13,7 @@ defmodule TrafficLightWeb.Webhook.GithubControllerTest do
     {:ok, _} = LightSetting.save(red, "ci")
     assert LightSetting.load("ci") == {:ok, red}
 
-    payload = Factory.build(:github_payload, %{status: "success"})
+    payload = Factory.build(:github_payload, %{event: "check_suite", status: "success"})
     conn = post(conn, Routes.github_path(conn, :create, token: token), payload)
 
     assert %{"success" => true} == json_response(conn, 201)
@@ -27,7 +27,7 @@ defmodule TrafficLightWeb.Webhook.GithubControllerTest do
     {:ok, _} = LightSetting.save(red, "ci")
     assert LightSetting.load("ci") == {:ok, red}
 
-    payload = Factory.build(:github_payload, %{status: "UNKNOWN_STATE"})
+    payload = Factory.build(:github_payload, %{event: "check_suite", status: "UNKNOWN_STATE"})
     conn = post(conn, Routes.github_path(conn, :create, token: token), payload)
 
     expected = %{"success" => false, "error" => "Unknown build state: UNKNOWN_STATE"}
@@ -37,8 +37,7 @@ defmodule TrafficLightWeb.Webhook.GithubControllerTest do
   end
 
   test "don't update the build status without valid token", %{conn: conn} do
-    payload = Factory.build(:github_payload, %{status: "UNKNOWN_STATE"})
-
+    payload = Factory.build(:github_payload, %{event: "check_suite", status: "UNKNOWN_STATE"})
     conn = post(conn, Routes.github_path(conn, :create), payload)
 
     assert "Unauthorized" == response(conn, 401)
