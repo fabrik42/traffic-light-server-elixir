@@ -1,6 +1,6 @@
-defmodule TrafficLight.LightSetting.WebhookParser do
+defmodule TrafficLight.LightSetting.WebhookParser.Codeship do
   @moduledoc """
-  Parses the payload sent through webhooks by CI services.
+  Parses the payload sent through webhooks by Codeship.
   """
 
   alias TrafficLight.LightSetting
@@ -17,7 +17,7 @@ defmodule TrafficLight.LightSetting.WebhookParser do
     "success" => :green
   }
 
-  def from_codeship(payload) do
+  def from_payload(payload) do
     case color_from_status(payload) do
       {:ok, color} ->
         light_setting =

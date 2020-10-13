@@ -9,7 +9,7 @@ It is meant to be used with a corresponding client to read the light and do some
 The server features the following capabilities:
 - LiveView-powered web UI to view a virtual traffic light.
 - JSON API to connect a real traffic light client.
-- Webhook API to receive status updates from CI services like [[https://documentation.codeship.com/general/projects/notifications/][Codeship]].
+- Webhook API to receive status updates from CI services like [[https://documentation.codeship.com/general/projects/notifications/][CodeShip]].
 - Interactive "public" mode where you can control the traffic light with the web UI.
 * Light Modes
 When in =public= mode, the light configuration can be changed by clicking on the corresponding lights on the UI.
@@ -32,8 +32,46 @@ GET http://localhost:4000/lights
 }
 #+END_SRC
 * Webhook API
-Example for a webhook for codeship (the only supported webooks right now):
+** Example for a webhook for GitHub checks
+For GitHub you can setup webhooks within your repository:
 
+#+begin_src sh
+<Repository> -> Settings -> Webhooks
+#+end_src
+
+Make sure to only choose the following webhook events:
+
+- [[https://developer.github.com/webhooks/event-payloads/#check_run][Check runs]]
+- [[https://developer.github.com/webhooks/event-payloads/#check_suite][Check suites]]
+
+The traffic light will turn ~yellow~ when a check run is started and will turn either ~red~ or ~green~ when a check suite was finished.
+
+The reason why both events are needed is because repository-based webhooks only receive a call for check suites when they are finished, but not when they are started.
+
+Additionally there is currently no way to [[https://dev.to/gr2m/github-api-how-to-retrieve-the-combined-pull-request-status-from-commit-statuses-check-runs-and-github-action-results-2cen][retrieve the combined pull request status]]. This project should not get access to the GitHub data of a repo on its own. So right now we stay with webhooks even though they might jump between results when multiple actions are called.
+
+Another option would be to leave out webhooks altogether and call the endpoints via =curl= in your GH actions directly, but this solution has not been evaluated yet.
+
+More information can be found here:
+- [[https://docs.github.com/en/rest/reference/checks#in-this-article][Checks - GitHub Docs]]
+- [[https://docs.github.com/en/developers/apps/creating-ci-tests-with-the-checks-api][Creating CI tests with the Checks API - GitHub Docs]]
+- [[https://docs.github.com/en/rest/guides/getting-started-with-the-checks-api][Getting started with the Checks API - GitHub Docs]]
+- [[https://docs.github.com/en/developers/webhooks-and-events/testing-webhooks][Testing webhooks - GitHub Docs]]
+
+#+begin_src restclient
+POST http://localhost:4000/webhooks/github?token=MY-SECRET-CI-TOKEN
+Content-Type: application/json
+
+{
+  "action": "created",
+  "check_run": {
+    "status": "queued",
+    "conclusion": null,
+  }
+}
+#+end_src
+
+** Example for a webhook for CodeShip
 #+begin_src restclient
 POST http://localhost:4000/webhooks/codeship?token=MY-SECRET-CI-TOKEN
 Content-Type: application/json

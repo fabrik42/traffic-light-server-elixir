@@ -48,8 +48,9 @@ defmodule TrafficLight.MixProject do
       {:castore, ">= 0.0.0"},
       # json
       {:poison, "~> 3.1"},
-      # code quality
-      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
+      # code quality, testing
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
     ]
   end
 
